@@ -1,4 +1,4 @@
-puts "What's you name?"
+puts "What's your name?"
 name = gets.chomp.upcase
 
 puts "Your name is: " + name

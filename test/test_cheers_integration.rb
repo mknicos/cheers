@@ -10,9 +10,12 @@ class TestCheersIntegration < MiniTest::Unit::TestCase
       shell_output = pipe.read
     end
     expected_output = <<EOS
-Give me a.. B
-Give me a.. R
-Give me a.. T
+What's your name?
+Your name is: BRT
+Give me a ... B
+Give me a ... R
+Give me a ... T
+BRT's just GRAND!
 EOS
     assert_equal expected_output, shell_output
   end
