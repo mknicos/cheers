@@ -130,11 +130,36 @@ EOS
   def test_name_with_symbols_and_spaces
     shell_output = ""
     IO.popen('ruby cheers.rb', 'r+') do |pipe|
-      pipe.puts "@#ma$%tt*&"
+      pipe.puts "@#ma$%tt *&"
       pipe.close_write
       shell_output = pipe.read
     end
     expected_output = <<EOS
+What's your name?
+Your name is: MATT
+Give me a ... M
+Give me an... A
+Give me a ... T
+Give me a ... T
+MATT's just GRAND!
+EOS
+    assert_equal expected_output, shell_output
+  end
+
+  def test_name_with_numbers
+    shell_output = ""
+    IO.popen('ruby cheers.rb', 'r+') do |pipe|
+      pipe.puts "ma34tt"
+      pipe.puts "2222"
+      pipe.puts "matt"
+      pipe.close_write
+      shell_output = pipe.read
+    end
+    expected_output = <<EOS
+What's your name?
+You need to enter a name
+What's your name?
+You need to enter a name
 What's your name?
 Your name is: MATT
 Give me a ... M
