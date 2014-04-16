@@ -76,16 +76,52 @@ EOS
     assert_equal expected_output, shell_output
   end
 
-  def test_an_empty_user_input
+  def test_an_initial_empty_user_input
     shell_output = ""
     IO.popen('ruby cheers.rb', 'r+') do |pipe|
       pipe.puts ""
+      pipe.puts "Matt"
       pipe.close_write
       shell_output = pipe.read
     end
     expected_output = <<EOS
 What's your name?
 You need to enter a name
+What's your name?
+Your name is: MATT
+Give me a ... M
+Give me an... A
+Give me a ... T
+Give me a ... T
+MATT's just GRAND!
+EOS
+    assert_equal expected_output, shell_output
+  end
+
+  def test_repeated_empty_user_input
+    shell_output = ""
+    IO.popen('ruby cheers.rb', 'r+') do |pipe|
+      pipe.puts ""
+      pipe.puts ""
+      pipe.puts ""
+      pipe.puts "Matt"
+      pipe.close_write
+      shell_output = pipe.read
+    end
+    expected_output = <<EOS
+What's your name?
+You need to enter a name
+What's your name?
+You need to enter a name
+What's your name?
+You need to enter a name
+What's your name?
+Your name is: MATT
+Give me a ... M
+Give me an... A
+Give me a ... T
+Give me a ... T
+MATT's just GRAND!
 EOS
     assert_equal expected_output, shell_output
   end

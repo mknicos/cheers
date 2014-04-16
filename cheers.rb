@@ -1,9 +1,11 @@
 puts "What's your name?"
 name = gets.chomp.upcase
 
-if name.empty?
+while name.empty?
+  #force user to input name until they do
   puts "You need to enter a name"
-  raise ArgumentError
+  puts "What's your name?"
+  name = gets.chomp.upcase
 end
 puts "Your name is: " + name
 name.each_char do |character|
