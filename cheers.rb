@@ -1,5 +1,5 @@
 puts "What's your name?"
-name = gets.chomp.upcase
+name = gets.chomp.upcase.gsub(/\W+/, '')
 
 while name.empty?
   #force user to input name until they do
