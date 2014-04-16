@@ -19,4 +19,74 @@ BRT's just GRAND!
 EOS
     assert_equal expected_output, shell_output
   end
+
+  def test_a_name_with_all_vowels
+    shell_output = ""
+    IO.popen('ruby cheers.rb', 'r+') do |pipe|
+      pipe.puts "AEI"
+      pipe.close_write
+      shell_output = pipe.read
+    end
+    expected_output = <<EOS
+What's your name?
+Your name is: AEI
+Give me an... A
+Give me an... E
+Give me an... I
+AEI's just GRAND!
+EOS
+    assert_equal expected_output, shell_output
+  end
+
+  def test_a_name_with_vowels_and_consonants
+    shell_output = ""
+    IO.popen('ruby cheers.rb', 'r+') do |pipe|
+      pipe.puts "MATT"
+      pipe.close_write
+      shell_output = pipe.read
+    end
+    expected_output = <<EOS
+What's your name?
+Your name is: MATT
+Give me a ... M
+Give me an... A
+Give me a ... T
+Give me a ... T
+MATT's just GRAND!
+EOS
+    assert_equal expected_output, shell_output
+  end
+
+  def test_a_name_all_lowercase
+    shell_output = ""
+    IO.popen('ruby cheers.rb', 'r+') do |pipe|
+      pipe.puts "matt"
+      pipe.close_write
+      shell_output = pipe.read
+    end
+    expected_output = <<EOS
+What's your name?
+Your name is: MATT
+Give me a ... M
+Give me an... A
+Give me a ... T
+Give me a ... T
+MATT's just GRAND!
+EOS
+    assert_equal expected_output, shell_output
+  end
+
+  def test_an_empty_user_input
+    shell_output = ""
+    IO.popen('ruby cheers.rb', 'r+') do |pipe|
+      pipe.puts ""
+      pipe.close_write
+      shell_output = pipe.read
+    end
+    expected_output = <<EOS
+What's your name?
+You need to enter a name
+EOS
+    assert_equal expected_output, shell_output
+  end
 end
